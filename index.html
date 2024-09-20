@@ -6,6 +6,14 @@
   <meta name="description" content="Strona z ciekawostkami o sztucznej inteligencji.">
   <title>Ciekawostki o AI</title>
   <link rel="stylesheet" href="style.css"> <!-- Linkowanie pliku CSS -->
+  <script>
+    // Sprawdź, czy użytkownik jest zalogowany
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true'; // Użycie localStorage do sprawdzenia stanu logowania
+
+    if (!isLoggedIn) {
+        window.location.href = 'loginpanel.html'; // Przekieruj do panelu logowania
+    }
+  </script>
 </head>
 <body>
   <div id="main-content">
