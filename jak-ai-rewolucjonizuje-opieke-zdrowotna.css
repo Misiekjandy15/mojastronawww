@@ -1,0 +1,22 @@
+h1 {
+  text-align: center;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  width: 100%;
+  font-family: Arial, sans-serif; /* Ustawienie czcionki Arial dla nagłówka */
+  margin-top: -10px; 
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; 
+  font-family: Arial, sans-serif; /* Ustawienie czcionki Arial dla całej strony */
+}
+
+.container {
+  margin-top: 0; 
+}
