@@ -48,7 +48,7 @@
       var password = document.getElementById('password').value;
 
       if (username === 'michal' && password === 'Sabinka1') {
-        sessionStorage.setItem('loggedIn', 'true');
+        localStorage.setItem('loggedIn', 'true');
         window.location.href = 'index.html';
       } else {
         alert('Nieprawidłowa nazwa użytkownika lub hasło!');
@@ -70,7 +70,7 @@
     }
 
     window.onload = function() {
-      if (sessionStorage.getItem('loggedIn') === 'true') {
+      if (localStorage.getItem('loggedIn') === 'true') {
         window.location.href = 'index.html';
       } else {
         document.getElementById('login-container').style.display = 'flex';
