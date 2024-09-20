@@ -8,15 +8,19 @@
   <link rel="stylesheet" href="style.css"> <!-- Linkowanie pliku CSS -->
   <script>
     // Sprawdź, czy użytkownik jest zalogowany
-    const isLoggedIn = localStorage.getItem('loggedIn') === 'true'; // Użycie localStorage do sprawdzenia stanu logowania
+    window.onload = function() {
+      const isLoggedIn = localStorage.getItem('loggedIn') === 'true'; // Użycie localStorage do sprawdzenia stanu logowania
 
-    if (!isLoggedIn) {
-        window.location.href = 'loginpanel.html'; // Przekieruj do panelu logowania
+      if (!isLoggedIn) {
+          window.location.href = 'loginpanel.html'; // Przekieruj do panelu logowania, jeśli nie jest zalogowany
+      } else {
+          document.getElementById('main-content').style.display = 'block'; // Pokaż zawartość
+      }
     }
   </script>
 </head>
 <body>
-  <div id="main-content">
+  <div id="main-content" style="display: none;">
     <header>
       <h1>Ciekawostki o AI</h1>
     </header>
