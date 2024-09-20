@@ -3,7 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+<<<<<<< HEAD
   background-color: red; /* Tutaj zmieniamy kolor tła strony */
+=======
+  background-color: white; /* Tutaj zmieniamy kolor tła strony */
+>>>>>>> cb724835bc3355605866341bc794a328a69f3d01
 }
 
 /* Globalne style */
