@@ -5,50 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Panel logowania do strony z ciekawostkami o sztucznej inteligencji.">
   <title>Panel logowania</title>
-  <link rel="stylesheet" href="loginpanel.css">
+  <link rel="stylesheet" href="loginpanel.css"> <!-- Pobieranie stylów z loginpanel.css -->
   
-  <style>
-    /* Twoje style */
-  </style>
-
   <script>
+    // Funkcja obsługująca logowanie
     function handleLogin(event) {
-      event.preventDefault();
+      event.preventDefault(); // Zatrzymanie domyślnego działania formularza
+
+      // Pobieranie danych logowania z inputów
       var username = document.getElementById('username').value;
       var password = document.getElementById('password').value;
 
-      if (username === 'michal' && password === 'Sabinka1') {
-        localStorage.setItem('loggedIn', 'true'); // Zapisz stan logowania
-        window.location.href = 'index.html'; // Przekieruj do strony głównej
+      // Ustawione dane logowania
+      var correctUsername = 'michal';
+      var correctPassword = 'Sabinka1';
+
+      // Weryfikacja loginu i hasła
+      if (username === correctUsername && password === correctPassword) {
+        sessionStorage.setItem('loggedIn', 'true'); // Ustawienie sesji logowania
+        window.location.href = 'index.html'; // Przekierowanie do strony głównej
       } else {
-        alert('Nieprawidłowa nazwa użytkownika lub hasło!');
+        alert('Nieprawidłowa nazwa użytkownika lub hasło!'); // Wyświetlanie błędu
       }
     }
 
+    // Funkcja pokazująca lub ukrywająca hasło
+    function togglePassword() {
+      var passwordField = document.getElementById('password');
+      var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type); // Zmiana typu pola
+    }
+
+    // Funkcja sprawdzająca, czy użytkownik jest już zalogowany
     window.onload = function() {
-      if (localStorage.getItem('loggedIn') === 'true') {
-        window.location.href = 'index.html'; // Jeśli już zalogowany, przekieruj
+      if (sessionStorage.getItem('loggedIn') === 'true') {
+        window.location.href = 'index.html'; // Przekierowanie, jeśli użytkownik jest zalogowany
       }
     }
   </script>
 </head>
 <body>
-  <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div>
-  
-  <div id="login-container" style="display: flex;">
+  <div id="login-container">
     <form id="login-form" onsubmit="handleLogin(event)">
-      <h2><center>Zaloguj Się</center></h2>
+      <h2>Zaloguj Się</h2>
 
-      <label for="username"><br>Nazwa użytkownika:</label>
+      <label for="username">Nazwa użytkownika:</label>
       <input type="text" id="username" name="username" required>
 
       <label for="password">Hasło:</label>
       <div class="password-container">
         <input type="password" id="password" name="password" required>
-        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        <span class="toggle-password" onclick="togglePassword()">👁️</span> <!-- Ikonka do podglądu hasła -->
       </div>
 
       <button type="submit">Zaloguj się</button>
