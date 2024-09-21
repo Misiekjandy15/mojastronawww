@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rejestracja na stronie z ciekawostkami o sztucznej inteligencji.">
+  <title>Rejestracja</title>
+  <link rel="stylesheet" href="loginpanel.css">
+  <script>
+    // Funkcja obsługująca rejestrację
+    function handleRegistration(event) {
+      event.preventDefault(); // Zatrzymanie domyślnego działania formularza
+
+      // Pobranie danych z formularza
+      var username = document.getElementById('new-username').value;
+      var password = document.getElementById('new-password').value;
+      var confirmPassword = document.getElementById('confirm-password').value;
+
+      // Prosta walidacja
+      if (password === confirmPassword) {
+        alert('Konto zostało założone! Możesz się teraz zalogować.'); // Powiadomienie użytkownika
+        window.location.href = 'loginpanel.html'; // Przekierowanie do panelu logowania
+      } else {
+        alert('Hasła nie pasują do siebie!'); // Błąd, jeśli hasła się nie zgadzają
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="register-container">
+    <form id="register-form" onsubmit="handleRegistration(event)">
+      <h2><center>Zarejestruj Się</center></h2>
+
+      <label for="new-username">Nazwa użytkownika:</label>
+      <input type="text" id="new-username" name="new-username" required>
+
+      <label for="new-password">Hasło:</label>
+      <input type="password" id="new-password" name="new-password" required>
+
+      <label for="confirm-password">Potwierdź hasło:</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+
+      <button type="submit">Zarejestruj się</button>
+    </form>
+  </div>
+</body>
+</html>

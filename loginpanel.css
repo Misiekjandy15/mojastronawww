@@ -1,146 +1,159 @@
+/* Resetowanie marginesów i paddingów */
 *,
 *:before,
 *:after {
-    padding: 0; /* Resetuje wszelkie wbudowane marginesy */
-    margin: 0;  /* Resetuje wszelkie wbudowane odstępy */
-    box-sizing: border-box; /* Gwarantuje, że padding i border są wliczane do szerokości i wysokości elementów */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: #080710; /* Ustawia tło strony na ciemny kolor */
+    background-color: #080710;
 }
 
 .background {
-    width: 430px; /* Szerokość tła */
-    height: 520px; /* Wysokość tła */
-    position: absolute; /* Pozycjonowanie absolutne względem najbliższego elementu z pozycjonowaniem */
-    transform: translate(-50%, -50%); /* Przesuwa tło o 50% w poziomie i pionie, by je wycentrować */
-    left: 50%; /* Pozycjonowanie względem lewej krawędzi o 50% */
-    top: 50%;  /* Pozycjonowanie względem górnej krawędzi o 50% */
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
 }
 
 .background .shape {
-    height: 200px; /* Wysokość okrągłego kształtu */
-    width: 200px;  /* Szerokość okrągłego kształtu */
-    position: absolute; /* Pozycjonowanie absolutne, niezależne od pozostałych elementów */
-    border-radius: 50%; /* Tworzy okrągły kształt, zmieniając element w idealne koło */
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
 }
 
 .shape:first-child {
-    background: linear-gradient(#1845ad, #23a2f6); /* Tworzy gradient od ciemnoniebieskiego do jaśniejszego */
-    left: -80px; /* Ustawia pozycję z lewej strony na -80px */
-    top: -80px;  /* Ustawia pozycję od góry na -80px */
+    background: linear-gradient(#1845ad, #23a2f6);
+    left: -80px;
+    top: -80px;
 }
 
 .shape:last-child {
-    background: linear-gradient(to right, #ff512f, #f09819); /* Gradient przechodzący od czerwieni do pomarańczu */
-    right: -30px; /* Ustawia pozycję z prawej strony na -30px */
-    bottom: -80px; /* Ustawia pozycję od dołu na -80px */
+    background: linear-gradient(to right, #ff512f, #f09819);
+    right: -40px;
+    bottom: -80px;
 }
 
 form {
-    height: 450px; /* Wysokość formularza */
-    width: 400px; /* Szerokość formularza */
-    background-color: rgba(255, 255, 255, 0.13); /* Ustawia półprzezroczyste białe tło */
-    position: absolute; /* Formularz pozycjonowany absolutnie */
-    transform: translate(-50%, -50%); /* Przesuwa formularz o 50% w poziomie i pionie, aby był wycentrowany */
-    top: 50%;  /* Pozycjonowanie w pionie na środku */
-    left: 50%; /* Pozycjonowanie w poziomie na środku */
-    border-radius: 10px; /* Zaokrągla rogi formularza */
-    backdrop-filter: blur(10px); /* Dodaje efekt rozmycia tła za formularzem */
-    border: 2px solid rgba(255, 255, 255, 0.1); /* Półprzezroczysta biała obwódka */
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6); /* Ciemniejszy cień, który daje efekt uniesienia formularza */
-    padding: 50px 35px; /* Dodaje wewnętrzny odstęp w środku formularza */
+    height: 480px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.13);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
 }
 
 form * {
-    font-family: 'Poppins', sans-serif; /* Ustawia czcionkę na 'Poppins' dla wszystkich elementów wewnątrz formularza */
-    color: #ffffff; /* Ustawia biały kolor tekstu */
-    letter-spacing: 0.5px; /* Dodaje lekki odstęp między literami */
-    outline: none; /* Usuwa domyślne obramowanie po kliknięciu w element */
-    border: none;  /* Usuwa domyślne obramowania */
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
 }
 
 form h3 {
-    font-size: 32px; /* Ustawia rozmiar czcionki nagłówka */
-    font-weight: 500; /* Ustawia grubość czcionki na średnią */
-    line-height: 42px; /* Ustawia wysokość linii */
-    text-align: center; /* Wycentrowanie nagłówka */
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
 }
 
 label {
-    display: block; /* Ustawia etykietę jako blok, aby każda znajdowała się w nowej linii */
-    margin-top: 20px; /* Dodaje odstęp powyżej etykiety */
-    font-size: 16px; /* Ustawia rozmiar czcionki */
-    font-weight: 500; /* Ustawia grubość czcionki */
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 input {
-    display: block; /* Ustawia pole tekstowe jako blok */
-    height: 50px; /* Wysokość pola tekstowego */
-    width: 100%; /* Szerokość na 100% kontenera */
-    background-color: rgba(255, 255, 255, 0.07); /* Półprzezroczyste białe tło dla pól tekstowych */
-    border-radius: 3px; /* Zaokrąglone rogi pól tekstowych */
-    padding: 0 10px; /* Dodaje wewnętrzny odstęp w polu tekstowym */
-    margin-top: 8px; /* Odstęp powyżej każdego pola */
-    font-size: 14px; /* Rozmiar czcionki w polu tekstowym */
-    font-weight: 300; /* Lżejsza grubość czcionki */
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
 }
 
 ::placeholder {
-    color: #e5e5e5; /* Kolor tekstu w placeholderach (np. "Nazwa Użytkownika") */
+    color: #e5e5e5;
 }
 
 .password-container {
-    position: relative; /* Ustawienie pozycji względem kontenera */
+    position: relative;
 }
 
 .password-container input[type="password"],
 .password-container input[type="text"] {
-    width: calc(100% - 1px); /* Dopasowanie szerokości, aby ikona zmieściła się obok pola hasła */
-    padding-right: 40px; /* Odstęp na ikonę */
+    width: calc(100% - 1px);
+    padding-right: 40px;
 }
 
 .password-container .toggle-password {
-    position: absolute; /* Pozycjonowanie absolutne ikony wewnątrz kontenera hasła */
-    right: 10px; /* Umieszczenie ikony po prawej stronie */
-    top: 50%; /* Wycentrowanie w pionie względem pola hasła */
-    transform: translateY(-50%); /* Dostosowanie pionowego wyśrodkowania */
-    cursor: pointer; /* Zmiana kursora na wskaźnik (rączka) */
-    font-size: 20px; /* Ustawienie odpowiedniej wielkości ikony */
-    color: #ffffff; /* Kolor ikony */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #ffffff;
 }
 
 .password-container .toggle-password:hover {
-    color: #e5e5e5; /* Kolor ikony po najechaniu */
+    color: #e5e5e5;
 }
 
 button {
-    margin-top: 50px; /* Odstęp nad przyciskiem */
-    width: 100%; /* Przycisk zajmuje 100% szerokości formularza */
-    background-color: #ffffff; /* Biały kolor tła dla przycisku */
-    color: #080710; /* Kolor tekstu przycisku */
-    padding: 15px 0; /* Górny i dolny padding przycisku */
-    font-size: 18px; /* Rozmiar czcionki przycisku */
-    font-weight: 600; /* Grubsza czcionka */
-    border-radius: 5px; /* Zaokrąglone rogi przycisku */
-    cursor: pointer; /* Zmienia kursor na "rączkę" przy najechaniu */
+    margin-top: 30px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+button.register-button {
+    margin-top: 5px; /* Zmniejsz margines tylko dla przycisku rejestracji */
 }
 
 .social {
-    margin-top: 30px; /* Odstęp nad ikonami społecznościowymi */
-    display: flex; /* Wyświetla elementy wewnątrz w jednym wierszu */
+    margin-top: 30px;
+    display: flex;
 }
 
 .social div {
-    background: red; /* Ustawia czerwony kolor tła, potem jest nadpisywany */
-    width: 150px; /* Szerokość ikony */
-    border-radius: 3px; /* Zaokrąglone rogi ikon */
-    padding: 5px 10px 10px 5px; /* Wewnętrzny odstęp dla każdej ikony */
-    background-color: rgba(255, 255, 255, 0.27); /* Półprzezroczyste białe tło */
-    color: #eaf0fb; /* Jasny niebieski kolor tekstu wewnątrz ikon */
-    text-align: center; /* Wycentrowanie tekstu w ikonach */
+    background: red;
+    width: 150px;
+    border-radius: 3px;
+    padding: 5px 10px 10px 5px;
+    background-color: rgba(255, 255, 255, 0.27);
+    color: #eaf0fb;
+    text-align: center;
 }
 
 .social div:hover {
     background-color: rgba(255, 255, 255, 0.47);
+}
+
+/* Stylizacja linii przerwy */
+hr {
+    border: none; /* Usunięcie domyślnego obramowania */
+    height: 1px; /* Wysokość linii */
+    background-color: #ccc; /* Kolor linii */
+    margin: 20px 0; /* Marginesy dookoła linii */
+}
