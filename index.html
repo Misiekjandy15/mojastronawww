@@ -7,6 +7,58 @@
   <title>Ciekawostki o AI</title>
   <link rel="stylesheet" href="style.css"> <!-- Link do pliku CSS -->
   
+  <style>
+    body {
+      font-family: "Lato", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 250px; /* Szerokość menu */
+      position: fixed;
+      top: 0;
+      right: -250px; /* Ukrycie menu poza ekranem po prawej stronie */
+      overflow-x: hidden;
+      transition: 0.5s; /* Przejrzystość dla płynnego wysuwania */
+      padding-top: 60px;
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #818181;
+    }
+
+    /* Przycisk do rozsuwania menu */
+    .open-btn {
+      font-size: 30px;
+      cursor: pointer;
+      position: absolute; /* Pozycjonowanie przycisku */
+      top: 10px; /* Odstęp od góry */
+      left: 10px; /* Odstęp od lewej */
+      color: white; /* Kolor tekstu przycisku */
+      background: transparent; /* Tło przycisku */
+      border: none; /* Bez obramowania */
+      z-index: 2; /* Ustawienie nad menu */
+    }
+
+    header {
+      background-color: black; /* Kolor tła nagłówka */
+      color: white; /* Kolor tekstu w nagłówku */
+      padding: 10px; /* Padding nagłówka */
+      position: relative; /* Umożliwia pozycjonowanie przycisku */
+    }
+  </style>
+  
   <script>
     window.onload = function() {
       // Sprawdzenie, czy użytkownik jest zalogowany
@@ -19,14 +71,40 @@
       sessionStorage.removeItem('loggedIn'); // Wylogowanie użytkownika
       window.location.href = 'loginpanel.html'; // Powrót do strony logowania
     }
+
+    let isOpen = false; // Zmienna do śledzenia stanu menu
+
+    function toggleNav() {
+      if (isOpen) {
+        closeNav();
+      } else {
+        openNav();
+      }
+    }
+
+    function openNav() {
+      document.getElementById("mySidenav").style.right = "0"; // Ustawienie pozycji menu na 0, aby się pokazało
+      isOpen = true; // Ustawienie stanu na otwarte
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.right = "-250px"; // Ukrycie menu poza ekranem
+      isOpen = false; // Ustawienie stanu na zamknięte
+    }
   </script>
 </head>
 <body>
+  <div id="mySidenav" class="sidenav">
+    <a href="pobierz.html">About</a> <!-- Link przekierowuje teraz na pobierz.html -->
+    
+  </div>
+
+  <header>
+    <button class="open-btn" onclick="toggleNav()">&#9776; otwórz</button>
+    <h1>Ciekawostki o AI</h1>
+  </header>
+
   <div id="main-content">
-    <header>
-      <h1>Ciekawostki o AI</h1>
-      
-    </header>
     <main>
       <section class="about">
         <h2>Czym jest sztuczna inteligencja?</h2>

@@ -28,7 +28,7 @@ a:hover {
 
 /* Style nagłówka */
 header {
-    background-color: #000;
+    background-color: black; 
     color: black;
     padding: 10px;
     text-align: center;
