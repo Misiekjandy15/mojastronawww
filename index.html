@@ -1,0 +1,251 @@
+<<<<<<< HEAD
+  <!DOCTYPE html>
+  <html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Strona z ciekawostkami o sztucznej inteligencji.">
+    <title>Ciekawostki o AI</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link do pliku CSS -->
+    
+    <style>
+      body {
+        font-family: "Lato", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .sidenav {
+        height: 100%;
+        width: 250px; /* Szerokość menu */
+        position: fixed;
+        top: 0;
+        right: -250px; /* Ukrycie menu poza ekranem po prawej stronie */
+        overflow-x: hidden;
+        transition: 0.5s; /* Przejrzystość dla płynnego wysuwania */
+        padding-top: 60px;
+      }
+
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+
+      .sidenav a:hover {
+        color: #818181;
+      }
+
+      /* Przycisk do rozsuwania menu */
+      .open-btn {
+        font-size: 30px;
+        cursor: pointer;
+        position: absolute; /* Pozycjonowanie przycisku */
+        top: 10px; /* Odstęp od góry */
+        left: 10px; /* Odstęp od lewej */
+        color: white; /* Kolor tekstu przycisku */
+        background: transparent; /* Tło przycisku */
+        border: none; /* Bez obramowania */
+        z-index: 2; /* Ustawienie nad menu */
+      }
+
+      header {
+        background-color: black; /* Kolor tła nagłówka */
+        color: white; /* Kolor tekstu w nagłówku */
+        padding: 10px; /* Padding nagłówka */
+        position: relative; /* Umożliwia pozycjonowanie przycisku */
+      }
+    </style>
+    
+    <script>
+      window.onload = function() {
+        // Sprawdzenie, czy użytkownik jest zalogowany
+        if (sessionStorage.getItem('loggedIn') !== 'true') {
+          window.location.href = 'loginpanel.html'; // Jeśli nie jest zalogowany, przekierowanie na stronę logowania
+        }
+      }
+
+      function logout() {
+        sessionStorage.removeItem('loggedIn'); // Wylogowanie użytkownika
+        window.location.href = 'loginpanel.html'; // Powrót do strony logowania
+      }
+
+      let isOpen = false; // Zmienna do śledzenia stanu menu
+
+      function toggleNav() {
+        if (isOpen) {
+          closeNav();
+        } else {
+          openNav();
+        }
+      }
+
+      function openNav() {
+        document.getElementById("mySidenav").style.right = "0"; // Ustawienie pozycji menu na 0, aby się pokazało
+        isOpen = true; // Ustawienie stanu na otwarte
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.right = "-250px"; // Ukrycie menu poza ekranem
+        isOpen = false; // Ustawienie stanu na zamknięte
+      }
+    </script>
+  </head>
+  <body>
+    <div id="mySidenav" class="sidenav">
+      <a href="pobierz.html">Pobierz</a> <!-- Link przekierowuje teraz na pobierz.html -->
+      
+    </div>
+
+    <header>
+      <button class="open-btn" onclick="toggleNav()">&#9776; otwórz</button>
+      <h1>Ciekawostki o AI</h1>
+    </header>
+
+    <div id="main-content">
+      <main>
+        <section class="about">
+          <h2>Czym jest sztuczna inteligencja?</h2>
+          <p>Sztuczna inteligencja (<strong><a href="https://pl.wikipedia.org/wiki/Sztuczna_inteligencja">AI</a></strong>) to dziedzina informatyki zajmująca się tworzeniem inteligentnych agentów, które są systemami zdolnymi do rozumowania i uczenia się działania autonomicznego.</p>
+        </section>
+        <section class="articles">
+          <h2>Najnowsze artykuły</h2>
+          <ul>
+            <li><a href="5-zastosowan-ai-ktore-zmienia-twoje-zycie.html">5 zastosowań AI, które zmienią Twoje życie</a></li>
+            <li><a href="jak-ai-rewolucjonizuje-opieke-zdrowotna.html">Jak AI rewolucjonizuje opiekę zdrowotną?</a></li>
+            <li><a href="czy-ai-jest-zagrozeniem-dla-ludzkosci.html">Czy AI jest zagrożeniem dla ludzkości?</a></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </body>
+  </html>
+=======
+  <!DOCTYPE html>
+  <html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Strona z ciekawostkami o sztucznej inteligencji.">
+    <title>Ciekawostki o AI</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link do pliku CSS -->
+    
+    <style>
+      body {
+        font-family: "Lato", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .sidenav {
+        height: 100%;
+        width: 250px; /* Szerokość menu */
+        position: fixed;
+        top: 0;
+        right: -250px; /* Ukrycie menu poza ekranem po prawej stronie */
+        overflow-x: hidden;
+        transition: 0.5s; /* Przejrzystość dla płynnego wysuwania */
+        padding-top: 60px;
+      }
+
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+
+      .sidenav a:hover {
+        color: #818181;
+      }
+
+      /* Przycisk do rozsuwania menu */
+      .open-btn {
+        font-size: 30px;
+        cursor: pointer;
+        position: absolute; /* Pozycjonowanie przycisku */
+        top: 10px; /* Odstęp od góry */
+        left: 10px; /* Odstęp od lewej */
+        color: white; /* Kolor tekstu przycisku */
+        background: transparent; /* Tło przycisku */
+        border: none; /* Bez obramowania */
+        z-index: 2; /* Ustawienie nad menu */
+      }
+
+      header {
+        background-color: black; /* Kolor tła nagłówka */
+        color: white; /* Kolor tekstu w nagłówku */
+        padding: 10px; /* Padding nagłówka */
+        position: relative; /* Umożliwia pozycjonowanie przycisku */
+      }
+    </style>
+    
+    <script>
+      window.onload = function() {
+        // Sprawdzenie, czy użytkownik jest zalogowany
+        if (sessionStorage.getItem('loggedIn') !== 'true') {
+          window.location.href = 'loginpanel.html'; // Jeśli nie jest zalogowany, przekierowanie na stronę logowania
+        }
+      }
+
+      function logout() {
+        sessionStorage.removeItem('loggedIn'); // Wylogowanie użytkownika
+        window.location.href = 'loginpanel.html'; // Powrót do strony logowania
+      }
+
+      let isOpen = false; // Zmienna do śledzenia stanu menu
+
+      function toggleNav() {
+        if (isOpen) {
+          closeNav();
+        } else {
+          openNav();
+        }
+      }
+
+      function openNav() {
+        document.getElementById("mySidenav").style.right = "0"; // Ustawienie pozycji menu na 0, aby się pokazało
+        isOpen = true; // Ustawienie stanu na otwarte
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.right = "-250px"; // Ukrycie menu poza ekranem
+        isOpen = false; // Ustawienie stanu na zamknięte
+      }
+    </script>
+  </head>
+  <body>
+    <div id="mySidenav" class="sidenav">
+      <a href="pobierz.html">Pobierz</a> <!-- Link przekierowuje teraz na pobierz.html -->
+      
+    </div>
+
+    <header>
+      <button class="open-btn" onclick="toggleNav()">&#9776; otwórz</button>
+      <h1>Ciekawostki o AI</h1>
+    </header>
+
+    <div id="main-content">
+      <main>
+        <section class="about">
+          <h2>Czym jest sztuczna inteligencja?</h2>
+          <p>Sztuczna inteligencja (<strong><a href="https://pl.wikipedia.org/wiki/Sztuczna_inteligencja">AI</a></strong>) to dziedzina informatyki zajmująca się tworzeniem inteligentnych agentów, które są systemami zdolnymi do rozumowania i uczenia się działania autonomicznego.</p>
+        </section>
+        <section class="articles">
+          <h2>Najnowsze artykuły</h2>
+          <ul>
+            <li><a href="5-zastosowan-ai-ktore-zmienia-twoje-zycie.html">5 zastosowań AI, które zmienią Twoje życie</a></li>
+            <li><a href="jak-ai-rewolucjonizuje-opieke-zdrowotna.html">Jak AI rewolucjonizuje opiekę zdrowotną?</a></li>
+            <li><a href="czy-ai-jest-zagrozeniem-dla-ludzkosci.html">Czy AI jest zagrożeniem dla ludzkości?</a></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </body>
+  </html>
+>>>>>>> d73fd3cd9cc5b0b9ff9e9f93ace23314fa447cf1
