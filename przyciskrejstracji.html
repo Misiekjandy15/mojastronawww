@@ -9,9 +9,8 @@
   <script>
     // Funkcja obsługująca rejestrację
     function handleRegistration(event) {
-      event.preventDefault(); // Zatrzymanie domyślnego działania formularza
+      event.preventDefault();
 
-      // Pobranie danych z formularza
       var username = document.getElementById('new-username').value;
       var password = document.getElementById('new-password').value;
       var confirmPassword = document.getElementById('confirm-password').value;
@@ -32,13 +31,27 @@
       .then(data => {
         alert(data.message);
         if (data.success) {
-          window.location.href = 'loginpanel.html'; // Przekierowanie do panelu logowania
+          window.location.href = 'loginpanel.html';
         }
       })
       .catch(error => {
         console.error('Błąd:', error);
         alert('Błąd podczas rejestracji');
       });
+    }
+
+    // Funkcja pokazująca lub ukrywająca hasło
+    function togglePassword() {
+      var passwordField = document.getElementById('new-password');
+      var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+    }
+
+    // Funkcja pokazująca lub ukrywająca potwierdzenie hasła
+    function toggleConfirmPassword() {
+      var confirmPasswordField = document.getElementById('confirm-password');
+      var type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      confirmPasswordField.setAttribute('type', type);
     }
   </script>
 </head>
@@ -49,18 +62,24 @@
   </div>
 
   <div id="register-container">
-    <form id="register-form" onsubmit="handleRegistration(event)">
+    <form id="register-form" onsubmit="handleRegistration(event)" autocomplete="off">
       <h2><center>Zarejestruj Się</center></h2>
 
       <label for="new-username">Nazwa użytkownika:</label>
-      <input type="text" id="new-username" name="new-username" required>
+      <input type="text" id="new-username" name="new-username" autocomplete="off" required>
 
       <label for="new-password">Hasło:</label>
-      <input type="password" id="new-password" name="new-password" required>
+      <div class="password-container">
+        <input type="password" id="new-password" name="new-password" autocomplete="new-password" required>
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>
 
       <label for="confirm-password">Potwierdź hasło:</label>
-      <input type="password" id="confirm-password" name="confirm-password" required>
-
+      <div class="password-container">
+        <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" required>
+        <span class="toggle-password" onclick="toggleConfirmPassword()">👁️</span>
+      </div>
+      
       <button type="submit">Zarejestruj się</button>
       
       <hr>

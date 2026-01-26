@@ -7,7 +7,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_change_this'
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*", "allow_headers": "*", "expose_headers": "*"}})
 
 # Ścieżka do bazy danych
 DATABASE = 'users.db'
@@ -131,6 +131,30 @@ def get_users():
             })
         
         return jsonify({'success': True, 'users': users_list, 'count': len(users_list)}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Błąd: {str(e)}'}), 500
+
+# Endpoint do usuwania użytkownika
+@app.route('/api/users/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    try:
+        conn = get_db()
+        c = conn.cursor()
+        
+        # Sprawdź czy użytkownik istnieje
+        c.execute('SELECT username FROM users WHERE id = ?', (user_id,))
+        user = c.fetchone()
+        
+        if not user:
+            conn.close()
+            return jsonify({'success': False, 'message': 'Użytkownik nie istnieje'}), 404
+        
+        # Usuń użytkownika
+        c.execute('DELETE FROM users WHERE id = ?', (user_id,))
+        conn.commit()
+        conn.close()
+        
+        return jsonify({'success': True, 'message': f'Użytkownik {user["username"]} został usunięty'}), 200
     except Exception as e:
         return jsonify({'success': False, 'message': f'Błąd: {str(e)}'}), 500
 

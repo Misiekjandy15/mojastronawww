@@ -153,8 +153,57 @@ button.register-button {
 
 /* Stylizacja linii przerwy */
 hr {
-    border: none; /* Usunięcie domyślnego obramowania */
-    height: 1px; /* Wysokość linii */
-    background-color: #ccc; /* Kolor linii */
-    margin: 20px 0; /* Marginesy dookoła linii */
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 20px 0;
+}
+
+/* Stylizacja kontenera rejestracji */
+#register-container {
+    height: 580px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.13);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
+}
+
+#register-container form {
+    height: auto;
+    width: 100%;
+    background-color: transparent;
+    position: static;
+    transform: none;
+    top: auto;
+    left: auto;
+    border-radius: 0;
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#register-container form h2 {
+    margin-bottom: 20px;
+}
+
+#register-container form label {
+    margin-top: 15px;
+}
+
+#register-container form button {
+    margin-top: 20px;
+}
+
+#register-container form button.register-button {
+    margin-top: 10px;
 }

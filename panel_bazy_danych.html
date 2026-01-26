@@ -158,8 +158,47 @@
       color: white;
     }
 
-    .btn-success:hover {
-      background-color: #45a049;
+    .btn-warning {
+      background-color: #ff9800;
+      color: white;
+    }
+
+    .btn-warning:hover {
+      background-color: #f57c00;
+    }
+
+    .checkbox-cell {
+      width: 50px;
+      text-align: center;
+    }
+
+    .user-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .delete-actions {
+      background: #fff3e0;
+      border: 2px solid #ff9800;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .delete-actions h3 {
+      color: #f57c00;
+      margin-bottom: 15px;
+    }
+
+    .selected-count {
+      background: #ff9800;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-weight: bold;
+      margin-left: 10px;
     }
 
     .loading {
@@ -287,6 +326,7 @@
       <button class="btn-primary" onclick="loadUsers()">🔄 Odśwież dane</button>
       <button class="btn-success" onclick="openAddModal()">➕ Dodaj użytkownika</button>
       <button class="btn-danger" onclick="resetDatabase()">🗑️ Resetuj bazę</button>
+      <button class="btn-warning" onclick="toggleDeleteMode()">🗑️ Usuń konto</button>
     </div>
 
     <h2 style="margin-top: 30px; margin-bottom: 20px; color: #333;">Lista użytkowników</h2>
@@ -297,6 +337,8 @@
     </div>
 
     <div id="tableContainer"></div>
+    
+    <div id="deleteActionsContainer"></div>
   </div>
 
   <!-- Modal do dodawania użytkownika -->
@@ -318,6 +360,8 @@
 
   <script>
     const API_URL = 'http://localhost:5000';
+    let deleteMode = false;
+    let selectedUsers = new Set();
 
     async function loadUsers() {
       const loading = document.getElementById('loading');
@@ -343,14 +387,27 @@
             
             // Stwórz tabelę
             let html = '<table><thead><tr>';
+            
+            if (deleteMode) {
+              html += '<th class="checkbox-cell"></th>';
+            }
+            
             html += '<th>ID</th><th>Nazwa użytkownika</th><th>Hasło (SHA256)</th><th>Rola</th><th>Data rejestracji</th>';
             html += '</tr></thead><tbody>';
             
             data.users.forEach(user => {
               const date = new Date(user.created_at).toLocaleString('pl-PL');
               const passwordPreview = user.password.substring(0, 20) + '...';
-              html += `<tr>
-                <td>${user.id}</td>
+              
+              html += '<tr>';
+              
+              if (deleteMode) {
+                html += `<td class="checkbox-cell">
+                  <input type="checkbox" class="user-checkbox" data-user-id="${user.id}" data-username="${user.username}" onchange="toggleUserSelection(${user.id}, '${user.username}')">
+                </td>`;
+              }
+              
+              html += `<td>${user.id}</td>
                 <td>${user.username}</td>
                 <td title="${user.password}" style="cursor: help; font-family: monospace; font-size: 11px;">${passwordPreview}</td>
                 <td><span style="background: ${user.role === 'admin' ? '#ff6b6b' : '#4CAF50'}; color: white; padding: 5px 10px; border-radius: 3px; font-size: 12px;">${user.role}</span></td>
@@ -360,6 +417,13 @@
             
             html += '</tbody></table>';
             tableContainer.innerHTML = html;
+            
+            // Wyświetl panel akcji usuwania jeśli jest w trybie usuwania
+            if (deleteMode) {
+              showDeleteActions();
+            } else {
+              hideDeleteActions();
+            }
           } else {
             tableContainer.innerHTML = '<div class="info-box">Brak użytkowników w bazie danych</div>';
           }
@@ -371,6 +435,97 @@
         showMessage('Błąd połączenia z serwerem: ' + error.message, 'error');
         tableContainer.innerHTML = '<div class="error">Nie można połączyć się z serwerem. Czy Flask jest uruchomiony?</div>';
       }
+    }
+
+    function toggleDeleteMode() {
+      deleteMode = !deleteMode;
+      selectedUsers.clear();
+      
+      if (deleteMode) {
+        showMessage('Tryb usuwania włączony. Zaznacz użytkowników do usunięcia.', 'info');
+      } else {
+        showMessage('Tryb usuwania wyłączony.', 'info');
+        hideDeleteActions();
+      }
+      
+      loadUsers();
+    }
+
+    function toggleUserSelection(userId, username) {
+      if (selectedUsers.has(userId)) {
+        selectedUsers.delete(userId);
+      } else {
+        selectedUsers.add(userId);
+      }
+      updateDeleteActions();
+    }
+
+    function showDeleteActions() {
+      const container = document.getElementById('deleteActionsContainer');
+      container.innerHTML = `
+        <div class="delete-actions">
+          <h3>Usuń zaznaczone konta <span class="selected-count" id="selectedCount">0</span></h3>
+          <p>Zaznacz użytkowników, których chcesz usunąć, a następnie kliknij "Akceptuj".</p>
+          <div class="button-group">
+            <button class="btn-danger" onclick="confirmDeleteUsers()">✅ Akceptuj</button>
+            <button class="btn-primary" onclick="cancelDeleteMode()">❌ Anuluj</button>
+          </div>
+        </div>
+      `;
+      updateDeleteActions();
+    }
+
+    function hideDeleteActions() {
+      document.getElementById('deleteActionsContainer').innerHTML = '';
+    }
+
+    function updateDeleteActions() {
+      const countElement = document.getElementById('selectedCount');
+      if (countElement) {
+        countElement.textContent = selectedUsers.size;
+      }
+    }
+
+    function confirmDeleteUsers() {
+      if (selectedUsers.size === 0) {
+        showMessage('Nie zaznaczono żadnych użytkowników do usunięcia.', 'error');
+        return;
+      }
+
+      if (confirm(`Czy na pewno chcesz usunąć ${selectedUsers.size} użytkowników? Ta operacja jest nieodwracalna!`)) {
+        deleteSelectedUsers();
+      }
+    }
+
+    async function deleteSelectedUsers() {
+      try {
+        const userIds = Array.from(selectedUsers);
+        
+        for (const userId of userIds) {
+          const response = await fetch(`${API_URL}/api/users/${userId}`, {
+            method: 'DELETE'
+          });
+          
+          if (!response.ok) {
+            throw new Error(`Błąd podczas usuwania użytkownika ID: ${userId}`);
+          }
+        }
+        
+        showMessage(`Pomyślnie usunięto ${userIds.length} użytkowników!`, 'success');
+        selectedUsers.clear();
+        deleteMode = false;
+        loadUsers();
+        
+      } catch (error) {
+        showMessage('Błąd podczas usuwania użytkowników: ' + error.message, 'error');
+      }
+    }
+
+    function cancelDeleteMode() {
+      deleteMode = false;
+      selectedUsers.clear();
+      showMessage('Tryb usuwania anulowany.', 'info');
+      loadUsers();
     }
 
     function openAddModal() {
@@ -395,10 +550,12 @@
       try {
         const response = await fetch(API_URL + '/api/register', {
           method: 'POST',
+          mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*'
           },
-          credentials: 'include',
           body: JSON.stringify({
             username: username,
             password: password,
