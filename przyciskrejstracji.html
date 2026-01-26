@@ -16,17 +16,38 @@
       var password = document.getElementById('new-password').value;
       var confirmPassword = document.getElementById('confirm-password').value;
 
-      // Prosta walidacja
-      if (password === confirmPassword) {
-        alert('Konto zostało założone! Możesz się teraz zalogować.'); // Powiadomienie użytkownika
-        window.location.href = 'loginpanel.html'; // Przekierowanie do panelu logowania
-      } else {
-        alert('Hasła nie pasują do siebie!'); // Błąd, jeśli hasła się nie zgadzają
-      }
+      // Wysłanie danych do backendu
+      fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          confirmPassword: confirmPassword
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+        if (data.success) {
+          window.location.href = 'loginpanel.html'; // Przekierowanie do panelu logowania
+        }
+      })
+      .catch(error => {
+        console.error('Błąd:', error);
+        alert('Błąd podczas rejestracji');
+      });
     }
   </script>
 </head>
 <body>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
   <div id="register-container">
     <form id="register-form" onsubmit="handleRegistration(event)">
       <h2><center>Zarejestruj Się</center></h2>
@@ -41,37 +62,10 @@
       <input type="password" id="confirm-password" name="confirm-password" required>
 
       <button type="submit">Zarejestruj się</button>
+      
+      <hr>
+      <button type="button" class="register-button" onclick="window.location.href='loginpanel.html'">Wróć do logowania</button>
     </form>
   </div>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rejestracja na stronie z ciekawostkami o sztucznej inteligencji.">
-  <title>Rejestracja</title>
-  <link rel="stylesheet" href="loginpanel.css">
-  <script>
-    // Funkcja obsługująca rejestrację
-    function handleRegistration(event) {
-      event.preventDefault(); // Zatrzymanie domyślnego działania formularza
-
-      // Pobranie danych z formularza
-      var username = document.getElementById('new-username').value;
-      var password = document.getElementById('new-password').value;
-      var confirmPassword = document.getElementById('confirm-password').value;
-
-      // Prosta walidacja
-      if (password === confirmPassword) {
-        alert('Konto zostało założone! Możesz się teraz zalogować.'); // Powiadomienie użytkownika
-        window.location.href = 'loginpanel.html'; // Przekierowanie do panelu logowania
-      } else {
-        alert('Hasła nie pasują do siebie!'); // Błąd, jeśli hasła się nie zgadzają
-      }
-    }
-  </script>
-</head>
-<body>
-  

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baza Danych Użytkowników - Strona Główna</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .card h2 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .card p {
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: opacity 0.3s ease;
+      font-weight: 600;
+    }
+
+    .card a:hover {
+      opacity: 0.9;
+    }
+
+    .quick-links {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .quick-links h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .quick-links a {
+      display: block;
+      padding: 15px;
+      background: #f5f5f5;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 5px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .quick-links a:hover {
+      background: #667eea;
+      color: white;
+    }
+
+    .info-section {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-section h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .info-section h3 {
+      color: #667eea;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .info-section p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .info-section ul {
+      margin-left: 20px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      background: #667eea;
+      color: white;
+      border-radius: 3px;
+      font-size: 12px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+
+    .status {
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border-left: 4px solid #28a745;
+    }
+
+    .status.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border-left: 4px solid #17a2b8;
+    }
+
+    .status.warning {
+      background: #fff3cd;
+      color: #856404;
+      border-left: 4px solid #ffc107;
+    }
+
+    footer {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎓 Baza Danych Użytkowników</h1>
+      <p class="subtitle">System rejestracji i logowania z SQLite</p>
+    </header>
+
+    <div class="status success">
+      ✅ System jest gotowy do użycia! Zapoznaj się z poniższymi sekcjami aby zacząć.
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h2>Szybki Start</h2>
+        <p>Zacznij pracę w zaledwie 5 minut. Instrukcje krok po kroku dla nowych użytkowników.</p>
+        <a href="SZYBKI_START.md">Przeczytaj</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔐</div>
+        <h2>Panel Logowania</h2>
+        <p>Zaloguj się do systemu lub załóż nowe konto. Bezpieczny dostęp do aplikacji.</p>
+        <a href="loginpanel.html">Zaloguj się</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h2>Panel Zarządzania</h2>
+        <p>Zarządzaj użytkownikami, dodawaj nowe konta i monitoruj aktywność.</p>
+        <a href="panel_bazy_danych.html">Otwórz Panel</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <h2>Pełna Instrukcja</h2>
+        <p>Kompletna dokumentacja z przykładami kodu i wyjaśnieniami technicznymi.</p>
+        <a href="INSTRUKCJA.md">Przeczytaj</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🛠️</div>
+        <h2>Zarządzanie Bazą</h2>
+        <p>Zaawansowane operacje na bazie danych przy użyciu CLI.</p>
+        <a href="README_BAZA_DANYCH.md">Dowiedz się</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h2>Schemat Bazy</h2>
+        <p>Szczegółowy opis struktury bazy danych i użyteczne zapytania SQL.</p>
+        <a href="schema.sql">Wyświetl Schemat</a>
+      </div>
+    </div>
+
+    <div class="quick-links">
+      <h2>🔗 Szybkie Linki</h2>
+      <div class="links-grid">
+        <a href="loginpanel.html">🔓 Zaloguj się</a>
+        <a href="przyciskrejstracji.html">📝 Zarejestruj się</a>
+        <a href="panel_bazy_danych.html">⚙️ Panel Admin</a>
+        <a href="SZYBKI_START.md">⚡ Szybki Start</a>
+        <a href="INSTRUKCJA.md">📖 Instrukcja</a>
+        <a href="PODSUMOWANIE.md">📌 Podsumowanie</a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📱 Jak zacząć?</h2>
+
+      <h3>Krok 1: Instalacja</h3>
+      <p>Zainstaluj wymagane pakiety Python:</p>
+      <code>pip install -r requirements.txt</code>
+
+      <h3>Krok 2: Uruchomienie serwera</h3>
+      <p>Uruchom backend Flask:</p>
+      <code>python app.py</code>
+      <p>Serwer będzie dostępny na: <code>http://localhost:5000</code></p>
+
+      <h3>Krok 3: Logowanie/Rejestracja</h3>
+      <p>Otwórz plik <code>loginpanel.html</code> w przeglądarce i zarejestruj się lub zaloguj.</p>
+
+      <h3>Krok 4: Zarządzanie</h3>
+      <p>Użyj panelu administracyjnego lub komendy CLI:</p>
+      <code>python manage_db.py list</code>
+
+      <h2 style="margin-top: 30px;">🔧 Dostępne Narzędzia</h2>
+
+      <h3>🖥️ Interfejsy Graficzne</h3>
+      <ul>
+        <li><strong>loginpanel.html</strong> - Panel logowania</li>
+        <li><strong>przyciskrejstracji.html</strong> - Panel rejestracji</li>
+        <li><strong>panel_bazy_danych.html</strong> - Panel zarządzania bazą</li>
+      </ul>
+
+      <h3>⌨️ Narzędzia CLI</h3>
+      <ul>
+        <li><code>python manage_db.py list</code> - Wyświetl użytkowników</li>
+        <li><code>python manage_db.py add &lt;user&gt; &lt;pass&gt;</code> - Dodaj użytkownika</li>
+        <li><code>python manage_db.py delete &lt;user&gt;</code> - Usuń użytkownika</li>
+        <li><code>python manage_db.py count</code> - Policz użytkowników</li>
+        <li><code>python test_api.py</code> - Testuj API</li>
+      </ul>
+
+      <h3>🔗 API Endpoints</h3>
+      <ul>
+        <li><strong>POST</strong> <code>/api/register</code> - Rejestracja</li>
+        <li><strong>POST</strong> <code>/api/login</code> - Logowanie</li>
+        <li><strong>POST</strong> <code>/api/logout</code> - Wylogowanie</li>
+        <li><strong>GET</strong> <code>/api/check-login</code> - Sprawdzenie statusu</li>
+      </ul>
+
+      <h2 style="margin-top: 30px;">📦 Struktura Projektu</h2>
+      <ul>
+        <li><strong>app.py</strong> - Backend Flask API</li>
+        <li><strong>*.html</strong> - Interfejsy użytkownika</li>
+        <li><strong>manage_db.py</strong> - Zarządzanie bazą CLI</li>
+        <li><strong>test_api.py</strong> - Testy API</li>
+        <li><strong>users.db</strong> - Baza danych SQLite (auto-created)</li>
+        <li><strong>requirements.txt</strong> - Wymagane pakiety</li>
+      </ul>
+
+      <h2 style="margin-top: 30px;">🔒 Bezpieczeństwo</h2>
+      <ul>
+        <li>✅ Hasła haszowane (SHA256)</li>
+        <li>✅ Nazwy unikalne</li>
+        <li>✅ Walidacja na backendu</li>
+        <li>✅ CORS security</li>
+        <li>✅ Session management</li>
+      </ul>
+
+      <div class="status info" style="margin-top: 20px;">
+        💡 <strong>Porada:</strong> Przeczytaj INSTRUKCJA.md dla pełnej dokumentacji i rozwiązywania problemów.
+      </div>
+    </div>
+
+    <footer>
+      <p>Baza Danych Użytkowników © 2026 | Projekt edukacyjny</p>
+      <p style="font-size: 12px; margin-top: 10px;">Zapoznaj się z dokumentacją przed rozpoczęciem pracy</p>
+    </footer>
+  </div>
+</body>
+</html>

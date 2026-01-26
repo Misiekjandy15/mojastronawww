@@ -1,0 +1,308 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                   BAZA DANYCH UŻYTKOWNIKÓW - MAPA PROJEKTU               ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        🚀 PUNKT STARTU                                  │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  1. Otwórz:    baza_danych_index.html                                  │
+│  2. Czytaj:    SZYBKI_START.md (5 minut)                               │
+│  3. Uruchom:   python app.py                                           │
+│  4. Zaloguj:   loginpanel.html                                         │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════
+                           📚 DOKUMENTACJA
+═══════════════════════════════════════════════════════════════════════════
+
+├─ README.md ..................... Główny przegląd projektu
+├─ SZYBKI_START.md ............... 5 minut do pierwszego logowania
+├─ INSTRUKCJA.md ................. Pełna dokumentacja (60+ stron)
+├─ PODSUMOWANIE.md ............... Przegląd wykonanych prac
+├─ README_BAZA_DANYCH.md ......... Pytania i odpowiedzi
+├─ schema.sql .................... Schemat bazy danych i zapytania SQL
+└─ PLIKI_PROJEKTU.txt ............ Ten plik
+
+
+═══════════════════════════════════════════════════════════════════════════
+                       🎨 INTERFEJSY UŻYTKOWNIKA
+═══════════════════════════════════════════════════════════════════════════
+
+baza_danych_index.html
+    ↓
+    ├─→ loginpanel.html ........... Panel logowania
+    │       ├─ Rejestracja
+    │       ├─ Logowanie
+    │       └─ Show/Hide password
+    │
+    ├─→ przyciskrejstracji.html .... Panel rejestracji
+    │       ├─ Nowa nazwa użytkownika
+    │       ├─ Nowe hasło
+    │       └─ Potwierdzenie hasła
+    │
+    └─→ panel_bazy_danych.html .... Panel zarządzania
+            ├─ Lista użytkowników
+            ├─ Dodawanie użytkownika
+            └─ Statystyki
+
+
+═══════════════════════════════════════════════════════════════════════════
+                       ⚙️ BACKEND & API
+═══════════════════════════════════════════════════════════════════════════
+
+app.py (Flask Backend)
+    │
+    ├─ POST /api/register
+    │   └─ Rejestracja nowego użytkownika
+    │
+    ├─ POST /api/login
+    │   └─ Logowanie użytkownika
+    │
+    ├─ POST /api/logout
+    │   └─ Wylogowanie
+    │
+    └─ GET /api/check-login
+        └─ Sprawdzenie statusu sesji
+
+        ↓ (SQL Query)
+
+users.db (SQLite Database)
+    │
+    └─ TABLE: users
+        ├─ id (INTEGER, PRIMARY KEY, AUTO INCREMENT)
+        ├─ username (TEXT, UNIQUE, NOT NULL)
+        ├─ password (TEXT, NOT NULL, SHA256)
+        └─ created_at (TIMESTAMP)
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    🛠️ NARZĘDZIA DO ZARZĄDZANIA
+═══════════════════════════════════════════════════════════════════════════
+
+manage_db.py
+├─ python manage_db.py list .... Wyświetl wszystkich użytkowników
+├─ python manage_db.py add <u> <p> . Dodaj użytkownika
+├─ python manage_db.py delete <u> .. Usuń użytkownika
+├─ python manage_db.py count ... Policz użytkowników
+└─ python manage_db.py reset ... Resetuj bazę (⚠️ NIEBEZPIECZNE!)
+
+test_api.py
+└─ python test_api.py ......... Testuj wszystkie endpoints API
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    🔧 PLIKI KONFIGURACYJNE
+═══════════════════════════════════════════════════════════════════════════
+
+requirements.txt
+    ├─ Flask==2.3.2
+    ├─ Flask-CORS==4.0.0
+    ├─ Werkzeug==2.3.6
+    ├─ requests==2.31.0
+    └─ tabulate==0.9.0
+
+konfiguracja.bat .... Instalacja pakietów (Windows)
+uruchom_serwer.bat .. Uruchomienie serwera (Windows)
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    🔐 PRZEPŁYW DANYCH
+═══════════════════════════════════════════════════════════════════════════
+
+REJESTRACJA:
+    1. Użytkownik wpisuje dane w przyciskrejstracji.html
+    2. JavaScript wysyła POST do /api/register
+    3. Backend waliduje dane
+    4. Backend hashuje hasło (SHA256)
+    5. Backend sprawdza czy username jest unikalny
+    6. Backend INSERT INTO users
+    7. Odpowiedź: "Konto założone"
+    8. Redirect do loginpanel.html
+
+LOGOWANIE:
+    1. Użytkownik wpisuje dane w loginpanel.html
+    2. JavaScript wysyła POST do /api/login
+    3. Backend szuka użytkownika
+    4. Backend hashuje podane hasło
+    5. Backend porównuje hashe
+    6. Jeśli zgadza się: tworzy sesję
+    7. Redirect do index.html
+    8. Session przechowuje: user_id, username
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    📊 STRUKTURA BAZY DANYCH
+═══════════════════════════════════════════════════════════════════════════
+
+users.db (SQLite)
+│
+└─ TABLE: users
+    │
+    ├─ COLUMNS:
+    │   ├─ id: Unikalny identyfikator (1, 2, 3, ...)
+    │   ├─ username: Nazwa użytkownika (michal, anna, tomasz)
+    │   ├─ password: SHA256 hash hasła (78a1c71d7...8c42...)
+    │   └─ created_at: Data i czas (2026-01-26 10:30:00)
+    │
+    ├─ INDEXES:
+    │   └─ idx_username (szybkie wyszukiwanie po username)
+    │
+    └─ CONSTRAINTS:
+        ├─ PRIMARY KEY (id)
+        ├─ UNIQUE (username)
+        └─ NOT NULL (username, password)
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    ⚡ SZYBKA KONFIGURACJA
+═══════════════════════════════════════════════════════════════════════════
+
+WINDOWS:
+    1. Kliknij dwa razy: konfiguracja.bat
+    2. Kliknij dwa razy: uruchom_serwer.bat
+    3. Otwórz: baza_danych_index.html
+
+LINUX/MAC:
+    1. pip install -r requirements.txt
+    2. python app.py
+    3. otwórz baza_danych_index.html
+
+LINUX/MAC (z virtualenv):
+    1. python -m venv venv
+    2. source venv/bin/activate  (Mac/Linux) lub venv\Scripts\activate (Windows)
+    3. pip install -r requirements.txt
+    4. python app.py
+    5. otwórz baza_danych_index.html
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    🆘 TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════
+
+PROBLEM: "Nie mogę się zalogować"
+  └─ ROZWIĄZANIE:
+     1. Sprawdź czy serwer jest uruchomiony (terminal powinien pokazać port 5000)
+     2. Sprawdź czy hasło jest poprawne (case-sensitive!)
+     3. Przeczytaj console.log w przeglądarce (F12)
+
+PROBLEM: "Port 5000 jest już w użyciu"
+  └─ ROZWIĄZANIE: netstat -ano | findstr :5000
+                  taskkill /PID <PID> /F
+
+PROBLEM: "ModuleNotFoundError: No module named 'flask'"
+  └─ ROZWIĄZANIE: pip install -r requirements.txt
+
+PROBLEM: "CORS error"
+  └─ ROZWIĄZANIE:
+     1. Upewnij się że Flask-CORS jest zainstalowany
+     2. Sprawdź czy serwer na porcie 5000 jest włączony
+     3. Otwórz F12 i sprawdź Network tab
+
+PROBLEM: "Baza danych nie istnieje"
+  └─ ROZWIĄZANIE:
+     1. Baza jest tworzona automatycznie
+     2. Jeśli brakuje: usuń users.db
+     3. Uruchom python app.py
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    📞 PRZYDATNE POLECENIA
+═══════════════════════════════════════════════════════════════════════════
+
+# Uruchom serwer
+python app.py
+
+# Wyświetl użytkowników
+python manage_db.py list
+
+# Dodaj użytkownika
+python manage_db.py add michal haslo123
+
+# Testuj API
+python test_api.py
+
+# Policz użytkowników
+python manage_db.py count
+
+# Resetuj bazę
+python manage_db.py reset
+
+# Sprawdź Python
+python --version
+
+# Zainstaluj pakiety
+pip install -r requirements.txt
+
+# Sprawdź co jest zainstalowane
+pip list
+
+# Szukaj na porcie 5000
+netstat -ano | findstr :5000
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    ✅ CHECKLIST SETUP
+═══════════════════════════════════════════════════════════════════════════
+
+Przygotowanie:
+  [ ] Python 3.7+ zainstalowany
+  [ ] Pakiety zainstalowane (pip install -r requirements.txt)
+  [ ] Folder projektu dostępny
+
+Uruchomienie:
+  [ ] Serwer Flask uruchomiony (python app.py)
+  [ ] Port 5000 dostępny
+  [ ] Plik bazy users.db istnieje
+
+Testowanie:
+  [ ] Mogę otworzyć loginpanel.html
+  [ ] Mogę się zarejestrować
+  [ ] Mogę się zalogować
+  [ ] Widzę panel_bazy_danych.html
+
+Zaawansowane:
+  [ ] Testy API przechodzą (python test_api.py)
+  [ ] Mogę dodać użytkownika (python manage_db.py add ...)
+  [ ] Mogę wyświetlić użytkowników (python manage_db.py list)
+
+
+═══════════════════════════════════════════════════════════════════════════
+                    📚 ZASOBY
+═══════════════════════════════════════════════════════════════════════════
+
+Dokumentacja:
+  • Flask: https://flask.palletsprojects.com/
+  • SQLite: https://www.sqlite.org/docs.html
+  • Python: https://docs.python.org/3/
+
+Tutoriale:
+  • Flask by Example: https://flask.palletsprojects.com/patterns/
+  • SQLite Tutorial: https://www.tutorialspoint.com/sqlite/
+
+Narzędzia:
+  • SQLite Browser: https://sqlitebrowser.org/
+  • Postman: https://www.postman.com/ (do testowania API)
+  • VS Code: https://code.visualstudio.com/
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+                    🚀 GOTOWY DO PRACY? ZACZNIJ TUTAJ:
+
+                    baza_danych_index.html
+                            ↓
+                    Otwórz w przeglądarce
+                            ↓
+                    Przeczytaj SZYBKI_START.md
+                            ↓
+                    python app.py
+                            ↓
+                    Zaloguj się!
+
+                            🎉
+
+═══════════════════════════════════════════════════════════════════════════

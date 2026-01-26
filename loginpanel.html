@@ -6,40 +6,52 @@
   <meta name="description" content="Panel logowania do strony z ciekawostkami o sztucznej inteligencji.">
   <title>Panel logowania</title>
   <link rel="stylesheet" href="loginpanel.css"> <!-- Pobieranie stylów z loginpanel.css -->
-  
+
   <script>
     // Funkcja obsługująca logowanie
     function handleLogin(event) {
-      event.preventDefault(); // Zatrzymanie domyślnego działania formularza
+      event.preventDefault();
 
-      // Pobieranie danych logowania z inputów
       var username = document.getElementById('username').value;
       var password = document.getElementById('password').value;
 
-      // Ustawione dane logowania
-      var correctUsername = 'michal';
-      var correctPassword = 'Sabinka1';
-
-      // Weryfikacja loginu i hasła
-      if (username === correctUsername && password === correctPassword) {
-        sessionStorage.setItem('loggedIn', 'true'); // Ustawienie sesji logowania
-        window.location.href = 'index.html'; // Przekierowanie do strony głównej
-      } else {
-        alert('Nieprawidłowa nazwa użytkownika lub hasło!'); // Wyświetlanie błędu
-      }
+      // Wysłanie danych do backendu
+      fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          sessionStorage.setItem('loggedIn', 'true');
+          window.location.href = 'index.html';
+        } else {
+          alert(data.message || 'Nieprawidłowa nazwa użytkownika lub hasło!');
+        }
+      })
+      .catch(error => {
+        console.error('Błąd:', error);
+        alert('Błąd podczas logowania. Upewnij się, że serwer backend jest uruchomiony na http://localhost:5000');
+      });
     }
 
     // Funkcja pokazująca lub ukrywająca hasło
     function togglePassword() {
       var passwordField = document.getElementById('password');
       var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordField.setAttribute('type', type); // Zmiana typu pola
+      passwordField.setAttribute('type', type);
     }
 
-    // Funkcja sprawdzająca, czy użytkownik jest już zalogowany
+    // Sprawdzenie, czy użytkownik jest już zalogowany
     window.onload = function() {
       if (sessionStorage.getItem('loggedIn') === 'true') {
-        window.location.href = 'index.html'; // Przekierowanie, jeśli użytkownik jest zalogowany
+        window.location.href = 'index.html';
       }
     }
   </script>
@@ -49,22 +61,22 @@
     <div class="shape"></div>
     <div class="shape"></div>
   </div>
+
   <div id="login-container">
-    <form id="login-form" onsubmit="handleLogin(event)">
+    <form id="login-form" onsubmit="handleLogin(event)" autocomplete="off">
       <h2><center>Zaloguj Się</center></h2>
 
       <label for="username">Nazwa użytkownika:</label>
-      <input type="text" id="username" name="username" required>
+      <input type="text" id="username" name="username" autocomplete="off" required>
 
       <label for="password">Hasło:</label>
       <div class="password-container">
-        <input type="password" id="password" name="password" required>
-        <span class="toggle-password" onclick="togglePassword()">👁️</span> <!-- Ikonka do podglądu hasła -->
+        <input type="password" id="password" name="password" autocomplete="new-password" required>
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
       </div>
       
       <button type="submit">Zaloguj się</button>
       
-      <!-- Linia przerwy -->
       <hr>
       <button type="button" class="register-button" onclick="window.location.href='przyciskrejstracji.html'">Zarejestruj się</button>
     </form>
