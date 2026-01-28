@@ -32,7 +32,17 @@
           sessionStorage.setItem('loggedIn', 'true');  <!-- Zapisz status logowania w sesji przeglądarki -->
           sessionStorage.setItem('username', data.username || '');  <!-- Zapisz nazwę użytkownika -->
           sessionStorage.setItem('role', data.role || 'user');  <!-- Zapisz rolę użytkownika -->
-          window.location.href = '../strona/strony_html/index.html';  <!-- Przekieruj na stronę główną -->
+          
+          // Debugowanie - pokaż dane w konsoli
+          console.log('Zalogowano użytkownika:', data.username);
+          console.log('Rola użytkownika:', data.role);
+          console.log('Zapisano w sessionStorage:', {
+            loggedIn: sessionStorage.getItem('loggedIn'),
+            username: sessionStorage.getItem('username'),
+            role: sessionStorage.getItem('role')
+          });
+          
+          window.location.href = '../index.html';  <!-- Przekieruj na stronę główną -->
         } else {  <!-- Jeśli logowanie się nie powiodło -->
           alert(data.message || 'Nieprawidłowa nazwa użytkownika lub hasło!');  <!-- Wyświetl komunikat o błędzie -->
         }
@@ -53,7 +63,7 @@
     // Sprawdzenie, czy użytkownik jest już zalogowany
     window.onload = function() {  <!-- Funkcja wykonywana po załadowaniu strony -->
       if (sessionStorage.getItem('loggedIn') === 'true') {  <!-- Sprawdź czy użytkownik jest zalogowany -->
-        window.location.href = '../strona/strony_html/index.html';  <!-- Przekieruj na stronę główną -->
+        window.location.href = '../index.html';  <!-- Przekieruj na stronę główną -->
       }
     }
   </script>  <!-- Zamknięcie tagu skryptu -->

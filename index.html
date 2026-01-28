@@ -75,12 +75,18 @@
         const userRole = sessionStorage.getItem('role') || 'user';
         const adminLink = document.getElementById('admin-link');
         
+        // Debugowanie - pokaż rolę w konsoli
+        console.log('Sprawdzana rola użytkownika:', userRole);
+        console.log('Element admin-link:', adminLink);
+        
         if (adminLink) {
           // Pokaż link tylko dla admina
           if (userRole === 'admin') {
             adminLink.style.display = 'block';
+            console.log('Link do bazy danych pokazany');
           } else {
             adminLink.style.display = 'none';
+            console.log('Link do bazy danych ukryty');
           }
         }
       }
@@ -99,6 +105,8 @@
           closeNav();
         } else {
           openNav();
+          // Sprawdź rolę przy każdym otwarciu menu
+          checkUserRole();
         }
       }
 
