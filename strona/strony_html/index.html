@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Strona z ciekawostkami o sztucznej inteligencji.">
     <title>Ciekawostki o AI</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link do pliku CSS -->
+    <link rel="stylesheet" href="../style_css/style.css"> <!-- Link do pliku CSS -->
     
     <style>
       body {
@@ -63,13 +63,33 @@
       window.onload = function() {
         // Sprawdzenie, czy użytkownik jest zalogowany
         if (sessionStorage.getItem('loggedIn') !== 'true') {
-          window.location.href = 'loginpanel.html'; // Jeśli nie jest zalogowany, przekierowanie na stronę logowania
+          window.location.href = '../logowanie/loginpanel.html'; // Jeśli nie jest zalogowany, przekierowanie na stronę logowania
+        } else {
+          // Sprawdź rolę użytkownika i pokaż/ukryj link do bazy
+          checkUserRole();
+        }
+      }
+
+      // Funkcja sprawdzająca rolę użytkownika
+      function checkUserRole() {
+        const userRole = sessionStorage.getItem('role') || 'user';
+        const adminLink = document.getElementById('admin-link');
+        
+        if (adminLink) {
+          // Pokaż link tylko dla admina
+          if (userRole === 'admin') {
+            adminLink.style.display = 'block';
+          } else {
+            adminLink.style.display = 'none';
+          }
         }
       }
 
       function logout() {
         sessionStorage.removeItem('loggedIn'); // Wylogowanie użytkownika
-        window.location.href = 'loginpanel.html'; // Powrót do strony logowania
+        sessionStorage.removeItem('username'); // Usuń nazwę użytkownika
+        sessionStorage.removeItem('role'); // Usuń rolę
+        window.location.href = '../logowanie/loginpanel.html'; // Powrót do strony logowania
       }
 
       let isOpen = false; // Zmienna do śledzenia stanu menu
@@ -96,7 +116,7 @@
   <body>
     <div id="mySidenav" class="sidenav">
       <a href="pobierz.html">Pobierz</a>
-      <a href="panel_bazy_danych.html"> Baza</a>
+      <a href="../panel_admina/panel_bazy_danych.html" id="admin-link" style="display: none;">🗃️ Baza</a>
     </div>
 
     <header>
@@ -113,9 +133,9 @@
         <section class="articles">
           <h2>Najnowsze artykuły</h2>
           <ul>
-            <li><a href="5-zastosowan-ai-ktore-zmienia-twoje-zycie.html">5 zastosowań AI, które zmienią Twoje życie</a></li>
-            <li><a href="jak-ai-rewolucjonizuje-opieke-zdrowotna.html">Jak AI rewolucjonizuje opiekę zdrowotną?</a></li>
-            <li><a href="czy-ai-jest-zagrozeniem-dla-ludzkosci.html">Czy AI jest zagrożeniem dla ludzkości?</a></li>
+            <li><a href="../artykuly/5-zastosowan-ai-ktore-zmienia-twoje-zycie.html">5 zastosowań AI, które zmienią Twoje życie</a></li>
+            <li><a href="../artykuly/jak-ai-rewolucjonizuje-opieke-zdrowotna.html">Jak AI rewolucjonizuje opiekę zdrowotną?</a></li>
+            <li><a href="../artykuly/czy-ai-jest-zagrozeniem-dla-ludzkosci.html">Czy AI jest zagrożeniem dla ludzkości?</a></li>
           </ul>
         </section>
       </main>

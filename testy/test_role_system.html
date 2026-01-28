@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Systemu Ról</title>
+</head>
+<body>
+    <h1>Test Systemu Ról</h1>
+    
+    <h2>Symulacja logowania:</h2>
+    <button onclick="simulateLogin('michal12', 'admin')">Zaloguj jako michal12 (admin)</button>
+    <button onclick="simulateLogin('misiek', 'user')">Zaloguj jako misiek (user)</button>
+    <button onclick="logout()">Wyloguj</button>
+    
+    <h2>Status:</h2>
+    <div id="status"></div>
+    
+    <h2>Menu (test):</h2>
+    <div id="test-menu">
+        <a href="pobierz.html">Pobierz</a>
+        <a href="panel_bazy_danych.html" id="admin-link" style="display: none;">🗃️ Baza</a>
+    </div>
+    
+    <script>
+        function simulateLogin(username, role) {
+            sessionStorage.setItem('loggedIn', 'true');
+            sessionStorage.setItem('username', username);
+            sessionStorage.setItem('role', role);
+            updateStatus();
+            checkUserRole();
+        }
+        
+        function logout() {
+            sessionStorage.removeItem('loggedIn');
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('role');
+            updateStatus();
+            checkUserRole();
+        }
+        
+        function updateStatus() {
+            const loggedIn = sessionStorage.getItem('loggedIn');
+            const username = sessionStorage.getItem('username');
+            const role = sessionStorage.getItem('role');
+            
+            document.getElementById('status').innerHTML = `
+                <p>Zalogowany: ${loggedIn}</p>
+                <p>Użytkownik: ${username}</p>
+                <p>Rola: ${role}</p>
+            `;
+        }
+        
+        function checkUserRole() {
+            const userRole = sessionStorage.getItem('role') || 'user';
+            const adminLink = document.getElementById('admin-link');
+            
+            if (adminLink) {
+                if (userRole === 'admin') {
+                    adminLink.style.display = 'block';
+                } else {
+                    adminLink.style.display = 'none';
+                }
+            }
+        }
+        
+        // Inicjalizacja
+        updateStatus();
+        checkUserRole();
+    </script>
+</body>
+</html>
