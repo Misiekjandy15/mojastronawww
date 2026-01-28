@@ -10,6 +10,7 @@ echo.
 echo Aby zatrzymac serwer, nacisnij CTRL+C
 echo.
 
+cd ..\serwer
 python app.py
 
 pause

@@ -19,7 +19,7 @@ app.secret_key = 'your_secret_key_change_this'
 CORS(app, resources={r"/*": {"origins": "*", "allow_headers": "*", "expose_headers": "*"}})
 
 # Ścieżka do bazy danych
-DATABASE = 'users.db'
+DATABASE = '../baza_danych/users.db'
 
 # Inicjalizacja bazy danych
 def init_db():
