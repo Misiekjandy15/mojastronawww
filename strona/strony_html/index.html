@@ -63,7 +63,7 @@
       window.onload = function() {
         // Sprawdzenie, czy użytkownik jest zalogowany
         if (sessionStorage.getItem('loggedIn') !== 'true') {
-          window.location.href = '../logowanie/loginpanel.html'; // Jeśli nie jest zalogowany, przekierowanie na stronę logowania
+          window.location.href = 'loginpanel.html'; // Jeśli nie jest zalogowany, przekierowanie na stronę logowania
         } else {
           // Sprawdź rolę użytkownika i pokaż/ukryj link do bazy
           checkUserRole();
@@ -89,7 +89,7 @@
         sessionStorage.removeItem('loggedIn'); // Wylogowanie użytkownika
         sessionStorage.removeItem('username'); // Usuń nazwę użytkownika
         sessionStorage.removeItem('role'); // Usuń rolę
-        window.location.href = '../logowanie/loginpanel.html'; // Powrót do strony logowania
+        window.location.href = 'loginpanel.html'; // Powrót do strony logowania
       }
 
       let isOpen = false; // Zmienna do śledzenia stanu menu

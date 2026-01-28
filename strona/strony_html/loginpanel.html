@@ -1,0 +1,97 @@
+<!DOCTYPE html>  <!-- Deklaracja typu dokumentu HTML5 -->
+<html lang="pl">  <!-- Główny element dokumentu z językiem polskim -->
+<head>  <!-- Sekcja head z meta danymi -->
+  <meta charset="UTF-8">  <!-- Kodowanie znaków UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Ustawienia responsywności dla urządzeń mobilnych -->
+  <meta name="description" content="Panel logowania do strony z ciekawostkami o sztucznej inteligencji.">  <!-- Opis strony dla SEO -->
+  <title>Panel logowania</title>  <!-- Tytuł strony wyświetlany w przeglądarce -->
+  <link rel="stylesheet" href="loginpanel.css"> <!-- Pobieranie stylów z loginpanel.css -->
+
+  <script>  <!-- Otwarcie tagu skryptu -->
+    // Funkcja obsługująca logowanie
+    function handleLogin(event) {  <!-- Definicja funkcji logowania -->
+      event.preventDefault();  <!-- Zapobiegaj domyślnej akcji formularza (przeładowaniu strony) -->
+
+      var username = document.getElementById('username').value;  <!-- Pobierz wartość pola nazwy użytkownika -->
+      var password = document.getElementById('password').value;  <!-- Pobierz wartość pola hasła -->
+
+      // Wysłanie danych do backendu
+      fetch('http://localhost:5000/api/login', {  <!-- Wyślij żądanie POST do API logowania -->
+        method: 'POST',  <!-- Metoda HTTP POST -->
+        headers: {  <!-- Nagłówki żądania -->
+          'Content-Type': 'application/json',  <!-- Typ zawartości JSON -->
+        },
+        body: JSON.stringify({  <!-- Ciało żądania jako JSON -->
+          username: username,  <!-- Nazwa użytkownika -->
+          password: password  <!-- Hasło -->
+        })
+      })
+      .then(response => response.json())  <!-- Przetwarzaj odpowiedź jako JSON -->
+      .then(data => {  <!-- Przetwarzaj dane z odpowiedzi -->
+        if (data.success) {  <!-- Jeśli logowanie się powiodło -->
+          sessionStorage.setItem('loggedIn', 'true');  <!-- Zapisz status logowania w sesji przeglądarki -->
+          sessionStorage.setItem('username', data.username || '');  <!-- Zapisz nazwę użytkownika -->
+          sessionStorage.setItem('role', data.role || 'user');  <!-- Zapisz rolę użytkownika -->
+          
+          // Debugowanie - pokaż dane w konsoli
+          console.log('Zalogowano użytkownika:', data.username);
+          console.log('Rola użytkownika:', data.role);
+          console.log('Zapisano w sessionStorage:', {
+            loggedIn: sessionStorage.getItem('loggedIn'),
+            username: sessionStorage.getItem('username'),
+            role: sessionStorage.getItem('role')
+          });
+          
+          window.location.href = 'index.html';  <!-- Przekieruj na stronę główną -->
+        } else {  <!-- Jeśli logowanie się nie powiodło -->
+          alert(data.message || 'Nieprawidłowa nazwa użytkownika lub hasło!');  <!-- Wyświetl komunikat o błędzie -->
+        }
+      })
+      .catch(error => {  <!-- Obsługa błędów sieciowych -->
+        console.error('Błąd:', error);  <!-- Zaloguj błąd w konsoli -->
+        alert('Błąd podczas logowania. Upewnij się, że serwer backend jest uruchomiony na http://localhost:5000');  <!-- Wyświetl komunikat o błędzie -->
+      });
+    }
+
+    // Funkcja pokazująca lub ukrywająca hasło
+    function togglePassword() {  <!-- Definicja funkcji przełączania hasła -->
+      var passwordField = document.getElementById('password');  <!-- Pobierz pole hasła -->
+      var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';  <!-- Zmień typ pola -->
+      passwordField.setAttribute('type', type);  <!-- Ustaw nowy typ pola (password/text) -->
+    }
+
+    // Sprawdzenie, czy użytkownik jest już zalogowany
+    window.onload = function() {  <!-- Funkcja wykonywana po załadowaniu strony -->
+      if (sessionStorage.getItem('loggedIn') === 'true') {  <!-- Sprawdź czy użytkownik jest zalogowany -->
+        window.location.href = 'index.html';  <!-- Przekieruj na stronę główną -->
+      }
+    }
+  </script>  <!-- Zamknięcie tagu skryptu -->
+</head>  <!-- Zamknięcie sekcji head -->
+<body>  <!-- Otwarcie tagu body -->
+  <div class="background">  <!-- Kontener tła z efektami wizualnymi -->
+    <div class="shape"></div>  <!-- Pierwszy element dekoracyjny -->
+    <div class="shape"></div>  <!-- Drugi element dekoracyjny -->
+  </div>
+
+  <div id="login-container">  <!-- Główny kontener formularza logowania -->
+    <form id="login-form" onsubmit="handleLogin(event)" autocomplete="off">  <!-- Formularz logowania -->
+      <h2><center>Zaloguj Się</center></h2>  <!-- Tytuł formularza -->
+
+      <label for="username">Nazwa użytkownika:</label>  <!-- Etykieta pola nazwy użytkownika -->
+      <input type="text" id="username" name="username" autocomplete="off" required>  <!-- Pole tekstowe dla nazwy użytkownika -->
+
+      <label for="password">Hasło:</label>  <!-- Etykieta pola hasła -->
+      <div class="password-container">  <!-- Kontener pola hasła z przyciskiem przełączania -->
+        <input type="password" id="password" name="password" autocomplete="new-password" required>  <!-- Pole hasła -->
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>  <!-- Przycisk przełączania widoczności hasła -->
+      </div>
+      
+      <button type="submit">Zaloguj się</button>  <!-- Przycisk logowania -->
+      
+      <hr>  <!-- Linia separatora -->
+      <button type="button" class="register-button" onclick="window.location.href='przyciskrejstracji.html'">Zarejestruj się</button>  <!-- Przycisk przejścia do rejestracji -->
+    </form>  <!-- Zamknięcie formularza -->
+  </div>  <!-- Zamknięcie kontenera logowania -->
+</body>  <!-- Zamknięcie tagu body -->
+</html>  <!-- Zamknięcie tagu html -->

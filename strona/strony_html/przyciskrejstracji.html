@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rejestracja na stronie z ciekawostkami o sztucznej inteligencji.">
+  <title>Rejestracja</title>
+  <link rel="stylesheet" href="loginpanel.css">
+  <script>
+    // Funkcja obsługująca rejestrację
+    function handleRegistration(event) {
+      event.preventDefault();
+
+      var username = document.getElementById('new-username').value;
+      var password = document.getElementById('new-password').value;
+      var confirmPassword = document.getElementById('confirm-password').value;
+
+      // Wysłanie danych do backendu
+      fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          confirmPassword: confirmPassword
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+        if (data.success) {
+          window.location.href = 'loginpanel.html';
+        }
+      })
+      .catch(error => {
+        console.error('Błąd:', error);
+        alert('Błąd podczas rejestracji');
+      });
+    }
+
+    // Funkcja pokazująca lub ukrywająca hasło
+    function togglePassword() {
+      var passwordField = document.getElementById('new-password');
+      var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+    }
+
+    // Funkcja pokazująca lub ukrywająca potwierdzenie hasła
+    function toggleConfirmPassword() {
+      var confirmPasswordField = document.getElementById('confirm-password');
+      var type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      confirmPasswordField.setAttribute('type', type);
+    }
+  </script>
+</head>
+<body>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <div id="register-container">
+    <form id="register-form" onsubmit="handleRegistration(event)" autocomplete="off">
+      <h2><center>Zarejestruj Się</center></h2>
+
+      <label for="new-username">Nazwa użytkownika:</label>
+      <input type="text" id="new-username" name="new-username" autocomplete="off" required>
+
+      <label for="new-password">Hasło:</label>
+      <div class="password-container">
+        <input type="password" id="new-password" name="new-password" autocomplete="new-password" required>
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>
+
+      <label for="confirm-password">Potwierdź hasło:</label>
+      <div class="password-container">
+        <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" required>
+        <span class="toggle-password" onclick="toggleConfirmPassword()">👁️</span>
+      </div>
+      
+      <button type="submit">Zarejestruj się</button>
+      
+      <hr>
+      <button type="button" class="register-button" onclick="window.location.href='loginpanel.html'">Wróć do logowania</button>
+    </form>
+  </div>
+</body>
+</html>
